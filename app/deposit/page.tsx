@@ -144,14 +144,19 @@ export default function DepositPage() {
                     </div>
                     <Button
                       size="sm"
-                      onClick={() => copyToClipboard(
-                        method.type === 'usdt' ? method.address! : method.number,
-                        method.label
-                      )}
+                      onClick={() => {
+                        const value = method.type === 'usdt' ? method.address : method.number;
+                        if (value) {
+                          copyToClipboard(value, method.label);
+                        } else {
+                          toast.error(`${method.label} introuvable`);
+                        }
+                      }}
                       className="bg-emerald-600 hover:bg-emerald-700"
                     >
                       <Copy className="w-4 h-4" />
                     </Button>
+
                   </div>
                 </CardContent>
               </Card>
